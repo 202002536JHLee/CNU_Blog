@@ -1,20 +1,32 @@
-import { useEffect, useState } from 'react';
-import { getPostList } from '../api';
 import PostListItem from '../components/PostListItem';
-import { IResponsePostList } from '../api/types';
 import NoPostList from '../components/NoPostList';
+import useGetPostList from "../queries/useGetPostList.ts";
 
 const Home = () => {
-  const [postList, setPostList] = useState<IResponsePostList>([]);
+  // const [postList, setPostList] = useState<IResponsePostList>([]);
+  const {data: postList = [], isError, isLoading} = useGetPostList();
 
-  const fetchPostList = async () => {
-    const { data } = await getPostList();
-    setPostList(data);
-  };
+  if (isLoading) {
+    return <div>...불러오는 중...</div>
+  }
 
-  useEffect(() => {
-    fetchPostList();
-  }, []);
+  if (postList.length === 0 || isError) {
+    return <NoPostList />;
+  }
+
+  // const fetchPostList = async () => {
+  //   const { data } = await getPostList();
+  //   const sortedList = data.sort((postA, postB) => {
+  //     if (postA.id >= postB.id) return -1;
+  //     else return 1;
+  //   });
+  //   setPostList(sortedList);
+  //   // setPostList(data);
+  // };
+  //
+  // useEffect(() => {
+  //   fetchPostList();
+  // }, []);
 
   if (postList.length === 0) {
     return <NoPostList />;
