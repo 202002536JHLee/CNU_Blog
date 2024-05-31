@@ -24,8 +24,9 @@ const Contents = styled.p`
 
 const PostListItem = (props: IPost) => {
   const { id, title, contents, tag } = props;
+
   return (
-    <ItemLink to={`/posts/${id}`}>
+    <ItemLink to={`/post/${id}`}>
       <h2>{title}</h2>
       <Contents>{contents}</Contents>
       <Tag>#{tag}</Tag>
