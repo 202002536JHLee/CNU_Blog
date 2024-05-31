@@ -15,7 +15,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools />
-      <Router>
+      <Router basename={'/CNU_Blog/'}>
         <Routes>
           <Route element={<Header />}>
             <Route element={<Layout />}>
